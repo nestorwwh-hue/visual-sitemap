@@ -7,15 +7,22 @@ module.exports = async (req, res) => {
     const { url } = req.body;
     if (!url) return res.status(400).json({ error: 'URL is required' });
 
+    let normalizedUrl = url;
+    if (!/^https?:\/\//i.test(url)) {
+        normalizedUrl = 'https://' + url;
+    }
+
     try {
-        const targetUrl = new URL(url);
+        const targetUrl = new URL(normalizedUrl);
         const baseUrl = `${targetUrl.protocol}//${targetUrl.hostname}`;
 
-        const response = await axios.get(url, {
+        const response = await axios.get(normalizedUrl, {
             headers: {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36',
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8'
             },
-            timeout: 8000
+            timeout: 10000,
+            maxRedirects: 5
         });
 
         const $ = cheerio.load(response.data);
@@ -54,6 +61,9 @@ module.exports = async (req, res) => {
         res.status(200).json(tree);
     } catch (error) {
         console.error('Crawl error:', error.message);
-        res.status(500).json({ error: 'Failed to crawl site' });
+        let message = 'Failed to crawl site';
+        if (error.code === 'ECONNABORTED') message = 'Connection timed out. The site might be too slow.';
+        if (error.response && error.response.status === 403) message = 'Access denied by the website (403 Forbidden).';
+        res.status(500).json({ error: message, detail: error.message });
     }
 };

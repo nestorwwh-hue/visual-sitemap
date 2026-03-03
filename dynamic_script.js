@@ -34,6 +34,9 @@ svg.call(zoom.transform, d3.zoomIdentity.translate(width / 2, margin.top + 40));
 const tree = d3.tree().nodeSize([200, 120]);
 
 async function generateSitemap(url) {
+    if (!/^https?:\/\//i.test(url)) {
+        url = 'https://' + url;
+    }
     const loader = document.getElementById("main-loader");
     const btn = document.getElementById("btn-generate");
 
