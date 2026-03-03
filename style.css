@@ -119,10 +119,8 @@ header {
 }
 
 button {
-    background: #48C8FF;
-    border: none;
-    color: #354851;
-    padding: 10px 22px;
+    height: 46px;
+    padding: 0 22px;
     border-radius: 10px;
     cursor: pointer;
     font-size: 14px;
@@ -130,18 +128,35 @@ button {
     font-weight: 400;
     transition: all var(--transition-speed);
     white-space: nowrap;
-    box-shadow: 0px 0px 20px #48C8FF, 0px 0px 16px rgba(255, 255, 255, 0.40) inset;
     display: inline-flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
     overflow: hidden;
+    border: none;
+    background: #48C8FF;
+    color: #354851;
+    box-shadow: 0px 0px 20px #48C8FF, 0px 0px 16px rgba(255, 255, 255, 0.40) inset;
 }
 
 button:hover {
     box-shadow: 0px 0px 25px #48C8FF, 0px 0px 20px rgba(255, 255, 255, 0.60) inset;
     transform: translateY(-1px);
     color: #1a252b;
+}
+
+.secondary-btn {
+    background: transparent;
+    color: #48C8FF;
+    outline: 1px #48C8FF solid;
+    outline-offset: -1px;
+    box-shadow: none;
+}
+
+.secondary-btn:hover {
+    background: rgba(72, 200, 255, 0.1);
+    box-shadow: 0 0 15px rgba(72, 200, 255, 0.2);
+    color: #48C8FF;
 }
 
 button:active {
