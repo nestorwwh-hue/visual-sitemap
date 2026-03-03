@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Superside Visual Sitemap | Information Architecture</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <!-- D3.js for Tree Visualization -->
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+</head>
+
+<body>
+    <div class="app-container">
+        <header>
+            <div class="logo-area">
+                <button id="toggle-sidebar" class="icon-btn" title="Toggle Sidebar">
+                    <i data-lucide="menu"></i>
+                </button>
+                <span class="brand">Superside</span>
+                <span class="tag">Visual Sitemap</span>
+            </div>
+            <div class="controls">
+                <button id="reset-view" title="Reset View">Center Tree</button>
+                <button id="expand-all" title="Expand All">Expand All</button>
+                <button id="collapse-all" title="Collapse All">Collapse All</button>
+            </div>
+        </header>
+
+        <main id="sitemap-canvas">
+            <aside id="sidebar" class="sidebar">
+                <div class="sidebar-header">
+                    <h3>Page List</h3>
+                    <input type="text" id="sidebar-search" placeholder="Filter list...">
+                </div>
+                <div id="page-list" class="page-list"></div>
+            </aside>
+            <div id="tree-container">
+                <div class="legend">
+                    <div class="legend-item"><span class="node-dot expandable"></span> Expandable Section</div>
+                    <div class="legend-item"><span class="node-dot page"></span> End Page</div>
+                    <div class="legend-item"><span class="node-dot selected"></span> Selected Node</div>
+                </div>
+            </div>
+
+            <div id="node-details" class="details-panel hidden">
+                <div class="details-content">
+                    <div class="details-header">
+                        <div>
+                            <span id="detail-depth" class="depth-badge">Level 0</span>
+                            <h3 id="detail-title">Page Title</h3>
+                        </div>
+                        <button id="close-details" title="Close">✕</button>
+                    </div>
+
+                    <div id="detail-preview" class="preview-block hidden">
+                        <img id="preview-img" src="" alt="Page Preview" class="preview-img" style="display: none;" />
+                        <div id="preview-spinner" class="preview-spinner hidden"></div>
+                        <div id="preview-error" class="preview-error hidden">Preview not available</div>
+                    </div>
+
+                    <div class="detail-meta">
+                        <p id="detail-url" class="hidden"><a href="#" target="_blank">↗ Visit Page</a></p>
+                        <p id="detail-description" class="meta-description hidden"></p>
+                        <div id="detail-keywords" class="keywords-row hidden"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 Superside Information Architecture Visualization</p>
+        </footer>
+    </div>
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

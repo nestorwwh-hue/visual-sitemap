@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Sitemap Generator | v2.0</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <style>
+        .input-bar {
+            background: var(--panel-bg);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(var(--glass-blur));
+        }
+
+        #site-url {
+            flex-grow: 1;
+            max-width: 600px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: #fff;
+            padding: 0.75rem 1.5rem;
+            border-radius: 30px;
+            font-family: var(--font-body);
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        #site-url:focus {
+            border-color: var(--accent-primary);
+        }
+
+        .loader {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            z-index: 1000;
+        }
+
+        .spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid rgba(255, 255, 255, 0.1);
+            border-top: 5px solid var(--accent-primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="app-container">
+        <header>
+            <div class="logo-area">
+                <button id="toggle-sidebar" class="icon-btn" title="Toggle Sidebar">
+                    <i data-lucide="menu"></i>
+                </button>
+                <span class="brand">Sitemap.AI</span>
+                <span class="tag">Generator v2.0</span>
+            </div>
+            <div class="controls">
+                <a href="index.html"
+                    style="color: var(--text-dim); text-decoration: none; font-size: 0.85rem; margin-right: 1rem;">View
+                    Superside v1.0</a>
+                <button id="reset-view">Center</button>
+                <button id="expand-all">Expand All</button>
+                <button id="collapse-all">Collapse All</button>
+            </div>
+        </header>
+
+        <div class="input-bar">
+            <input type="url" id="site-url" placeholder="Enter website URL (e.g. https://example.com)">
+            <button id="btn-generate">Generate Sitemap</button>
+        </div>
+
+        <main id="sitemap-canvas">
+            <aside id="sidebar" class="sidebar">
+                <div class="sidebar-header">
+                    <h3>Page List</h3>
+                    <input type="text" id="sidebar-search" placeholder="Filter list...">
+                </div>
+                <div id="page-list" class="page-list"></div>
+            </aside>
+            <div id="tree-container">
+                <div class="legend">
+                    <div class="legend-item"><span class="node-dot expandable"></span> Expandable Section</div>
+                    <div class="legend-item"><span class="node-dot page"></span> End Page</div>
+                    <div class="legend-item"><span class="node-dot selected"></span> Selected Node</div>
+                </div>
+            </div>
+
+            <div class="loader" id="main-loader">
+                <div class="spinner"></div>
+                <p>Analyzing architecture...</p>
+            </div>
+
+            <div id="node-details" class="details-panel hidden">
+                <div class="details-content">
+                    <div class="details-header">
+                        <div>
+                            <span id="detail-depth" class="depth-badge">Level 0</span>
+                            <h3 id="detail-title">Page Title</h3>
+                        </div>
+                        <button id="close-details" title="Close">✕</button>
+                    </div>
+
+                    <div id="detail-preview" class="preview-block hidden">
+                        <img id="preview-img" src="" alt="Page Preview" class="preview-img" style="display: none;" />
+                        <div id="preview-spinner" class="preview-spinner hidden"></div>
+                        <div id="preview-error" class="preview-error hidden">Preview not available</div>
+                    </div>
+
+                    <div class="detail-meta">
+                        <p id="detail-url" class="hidden"><a href="#" target="_blank">↗ Visit Page</a></p>
+                        <p id="detail-description" class="meta-description hidden"></p>
+                        <div id="detail-keywords" class="keywords-row hidden"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <footer>
+            <p>&copy; 2026 AI Visual Sitemap Generator | Version 2.0</p>
+        </footer>
+    </div>
+
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="dynamic_script.js"></script>
+</body>
+
+</html>
