@@ -1,5 +1,8 @@
 {
-    "name": "superside-visual-sitemap-client",
+    "name": "superside-visual-sitemap",
     "version": "1.0.0",
-    "private": true
+    "private": true,
+    "scripts": {
+        "build": "mkdir dist && cp public/* dist/"
+    }
 }
