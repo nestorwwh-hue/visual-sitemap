@@ -5,7 +5,7 @@ A premium, high-performance visual sitemap generator that transforms any website
 ![Dotted Background Pattern](https://visual-sitemap.vercel.app/preview-placeholder.png) <!-- Link to a screenshot if you have one public -->
 
 ## 🚀 Live Demo
-**[visual-sitemap.vercel.app](https://visual-sitemap.vercel.app)**
+**[visual-sitemap-v3.vercel.app](https://visual-sitemap-v3.vercel.app)**
 
 ## ✨ Features
 - **Real-time Crawling**: Dynamic sitemap generation from any URL via Vercel Serverless Functions.
