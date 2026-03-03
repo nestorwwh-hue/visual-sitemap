@@ -1,7 +1,7 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
 
-export default async function handler(req, res) {
+module.exports = async (req, res) => {
     if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
     const { url } = req.body;
@@ -12,8 +12,10 @@ export default async function handler(req, res) {
         const baseUrl = `${targetUrl.protocol}//${targetUrl.hostname}`;
 
         const response = await axios.get(url, {
-            headers: { 'User-Agent': 'Mozilla/5.0 (Vercel Client)' },
-            timeout: 5000
+            headers: {
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+            },
+            timeout: 8000
         });
 
         const $ = cheerio.load(response.data);
@@ -51,6 +53,7 @@ export default async function handler(req, res) {
 
         res.status(200).json(tree);
     } catch (error) {
+        console.error('Crawl error:', error.message);
         res.status(500).json({ error: 'Failed to crawl site' });
     }
-}
+};

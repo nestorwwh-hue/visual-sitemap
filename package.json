@@ -1,0 +1,8 @@
+{
+  "name": "visual-sitemap",
+  "version": "1.0.0",
+  "dependencies": {
+    "axios": "^1.13.6",
+    "cheerio": "^1.2.0"
+  }
+}
